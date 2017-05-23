@@ -38,19 +38,21 @@ namespace InventoryManagementSystem.Controllers
                     {
                         ViewBag.saveConfirmMsg = "Successfully Added!..";
                         ViewBag.GroupList = _groupManager.GetAllGroup();
+                        return View(new Group());
                     }
                     else
                     {
                         ViewBag.saveConfirmMsg = "Some Error Occured";
                     }
-                    ViewBag.GroupList = _groupManager.GetAllGroup();
                 }
                 catch (Exception ex)
                 {
                     ViewBag.Message = ex.Message;
                 }
+                ViewBag.GroupList = _groupManager.GetAllGroup();
                 return View(group);
             }
+            ViewBag.GroupList = _groupManager.GetAllGroup();
             ViewBag.saveConfirmMsg = "Please Fill All Field";
             return View(group);
         }

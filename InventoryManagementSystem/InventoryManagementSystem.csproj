@@ -197,9 +197,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705231229112_DataAnnotaionAddinModels.cs" />
-    <Compile Include="Migrations\201705231229112_DataAnnotaionAddinModels.Designer.cs">
-      <DependentUpon>201705231229112_DataAnnotaionAddinModels.cs</DependentUpon>
+    <Compile Include="Migrations\201705231601011_FirstMigrationWithGroupItemItemShopTable.cs" />
+    <Compile Include="Migrations\201705231601011_FirstMigrationWithGroupItemItemShopTable.Designer.cs">
+      <DependentUpon>201705231601011_FirstMigrationWithGroupItemItemShopTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -338,8 +338,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705231229112_DataAnnotaionAddinModels.resx">
-      <DependentUpon>201705231229112_DataAnnotaionAddinModels.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705231601011_FirstMigrationWithGroupItemItemShopTable.resx">
+      <DependentUpon>201705231601011_FirstMigrationWithGroupItemItemShopTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

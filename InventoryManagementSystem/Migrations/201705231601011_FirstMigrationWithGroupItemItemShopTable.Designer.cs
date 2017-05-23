@@ -7,13 +7,13 @@ namespace InventoryManagementSystem.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class DataAnnotaionAddinModels : IMigrationMetadata
+    public sealed partial class FirstMigrationWithGroupItemItemShopTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DataAnnotaionAddinModels));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FirstMigrationWithGroupItemItemShopTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705231229112_DataAnnotaionAddinModels"; }
+            get { return "201705231601011_FirstMigrationWithGroupItemItemShopTable"; }
         }
         
         string IMigrationMetadata.Source

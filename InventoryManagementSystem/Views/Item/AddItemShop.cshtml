@@ -15,10 +15,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>AddItemShop</title>
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <script src="../Scripts/jquery-3.1.1.min.js"></script>
-    <script src="../Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     
     @using (Html.BeginForm()) {
@@ -55,7 +60,7 @@
                 @Html.LabelFor(model => model.ItemId)
             </div>
             <div class="editor-field">
-                <select name="ItemId" id="ItemId" style="width: 173px"></select>
+                @Html.DropDownListFor(m => m.ItemId, Enumerable.Empty<SelectListItem>(), "--Select--", null)
                 @Html.ValidationMessageFor(model => model.ItemId)
             </div>
             <div class="editor-label">
@@ -69,7 +74,7 @@
             
     
             <p>
-                <input type="submit" value="Create" />
+                <input type="submit" value="Add" />
             </p>
         </fieldset>
     }
@@ -108,7 +113,7 @@
         </table>
     }
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        <a href="@Url.Action("Index", "Group")">Back to List</a>
     </div>
     <script>
         $(document).ready(function () {
@@ -118,6 +123,7 @@
                 var grpId = $("#groupId").val();
                 if (grpId > 0) {
                     $("#ItemId").empty();
+                    $("#ItemId").append($("<option />").val(null).html("--Select--"));
                     var json = { groupId: grpId };
                     $.ajax({
                         type: "POST",

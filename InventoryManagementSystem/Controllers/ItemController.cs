@@ -33,6 +33,8 @@ namespace InventoryManagementSystem.Controllers
                     else if (_itemManager.SetItem(item))
                     {
                         ViewBag.saveConfirmMsg = "Successfully Added!..";
+                        ViewBag.ItemList = _itemManager.GetAllItem();
+                        return View(new Item());
                     }
                     else
                     {
@@ -43,6 +45,8 @@ namespace InventoryManagementSystem.Controllers
                 {
                     ViewBag.saveConfirmMsg = ex.Message;
                 }
+                ViewBag.ItemList = _itemManager.GetAllItem(); ;
+                return View(item);
             }
             ViewBag.ItemList = _itemManager.GetAllItem();
             ViewBag.saveConfirmMsg = "Please Fill All Field";
@@ -63,7 +67,6 @@ namespace InventoryManagementSystem.Controllers
         public ActionResult AddItemShop(ItemShop itemShop)
         {
             ViewBag.GroupList = _groupManager.GetAllGroup();
-            
             if (ModelState.IsValid)
             {
                 try
@@ -71,11 +74,11 @@ namespace InventoryManagementSystem.Controllers
                     if (_itemManager.AddItemToShop(itemShop))
                     {
                         ViewBag.saveConfirmMsg = "Successfully Added!..";
+                        ViewBag.ItemShopViewList = _itemManager.GetAllItemShop();
+                        return View(new ItemShop());
                     }
-                    else
-                    {
-                        ViewBag.saveConfirmMsg = "Item Quantity Can not be Negative";
-                    }
+                    ViewBag.saveConfirmMsg = "Item Quantity Can not be Negative";
+
                 }
                 catch (Exception ex)
                 {

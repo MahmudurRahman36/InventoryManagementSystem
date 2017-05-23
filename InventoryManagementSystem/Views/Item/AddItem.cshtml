@@ -19,8 +19,8 @@
     </style>
 </head>
 <body>
-    <script src="../Scripts/jquery-3.1.1.min.js"></script>
-    <script src="../Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     
     @using (Html.BeginForm()) {
@@ -53,12 +53,12 @@
                 @Html.LabelFor(model => model.GroupId)
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(x => x.GroupId, new SelectList(groupList, "Id", "GroupName"))
+                @Html.DropDownListFor(x => x.GroupId, new SelectList(groupList, "Id", "GroupName"), "--Select--", null)
                 @Html.ValidationMessageFor(model => model.GroupId)
             </div>
     
             <p>
-                <input type="submit" value="Create" />
+                <input type="submit" value="Add" />
             </p>
         </fieldset>
     }
@@ -92,7 +92,7 @@
         </table>
     }
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        <a href="@Url.Action("Index", "Group")">Back to List</a>
     </div>
 </body>
 </html>
