@@ -1,0 +1,86 @@
+﻿@model InventoryManagementSystem.Models.Entity.Group
+@using InventoryManagementSystem.Models.Entity
+
+@{
+    Layout = null;
+    List<Group> groupList = ViewBag.GroupList;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddGroup</title>
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <script src="../Scripts/jquery-3.1.1.min.js"></script>
+    <script src="../Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>Group</legend>
+    @if (ViewBag.saveConfirmMsg != null)
+{
+    string notificationMessage = ViewBag.saveConfirmMsg.ToString();
+    if (notificationMessage.Equals("Successfully Added!.."))
+    {
+        <h3 style="color: green;">@notificationMessage</h3>
+    }
+    else
+    {
+        <h3 style="color: red;">@notificationMessage</h3>
+    }
+}
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GroupName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.GroupName)
+                @Html.ValidationMessageFor(model => model.GroupName)
+            </div>
+    
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+    @if (groupList != null)
+    {
+        <table border="1px">
+            <tr>
+                <th>SI</th>
+                <th>Group Name</th>
+            </tr>
+            @{
+                int si = 1;
+            }
+            @foreach (Group group in groupList)
+            {
+                <tr>
+                    <td>
+                        @si
+                    </td>
+                    <td>
+                        @group.GroupName
+                    </td>
+                </tr>
+                si++;
+            }
+
+        </table>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

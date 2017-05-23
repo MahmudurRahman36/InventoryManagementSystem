@@ -1,0 +1,98 @@
+﻿@model InventoryManagementSystem.Models.Entity.Item
+@using InventoryManagementSystem.Models.Entity
+@{
+    Layout = null;
+    List<Group> groupList = ViewBag.GroupList;
+    List<Item> itemList = ViewBag.ItemList;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddItem</title>
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <script src="../Scripts/jquery-3.1.1.min.js"></script>
+    <script src="../Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>Item</legend>
+    @if (ViewBag.saveConfirmMsg != null)
+{
+    string notificationMessage = ViewBag.saveConfirmMsg.ToString();
+    if (notificationMessage.Equals("Successfully Added!.."))
+    {
+        <h3 style="color: green;">@notificationMessage</h3>
+    }
+    else
+    {
+        <h3 style="color: red;">@notificationMessage</h3>
+    }
+}
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ItemName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ItemName)
+                @Html.ValidationMessageFor(model => model.ItemName)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GroupId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(x => x.GroupId, new SelectList(groupList, "Id", "GroupName"))
+                @Html.ValidationMessageFor(model => model.GroupId)
+            </div>
+    
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+    @if (itemList != null)
+    {
+        <table border="1px">
+            <tr>
+                <th>SI</th>
+                <th>Item Name</th>
+                <th>Group</th>
+            </tr>
+            @{
+                int si = 1;
+            }
+            @foreach (Item item in itemList)
+            {
+                <tr>
+                    <td>
+                        @si
+                    </td>
+                    <td>
+                        @item.ItemName
+                    </td>
+                    <td>
+                        @item.Group.GroupName
+                    </td>
+                </tr>
+                si++;
+            }
+
+        </table>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

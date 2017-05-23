@@ -1,0 +1,147 @@
+﻿@model InventoryManagementSystem.Models.Entity.ItemShop
+@using InventoryManagementSystem.Models.Entity
+@using InventoryManagementSystem.Models.View
+
+@{
+    Layout = null;
+    List<Group> groupList = ViewBag.GroupList;
+    List<Item> itemList = ViewBag.ItemList;
+    List<ItemShopView> itemShopViewList = ViewBag.ItemShopViewList;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddItemShop</title>
+</head>
+<body>
+    <script src="../Scripts/jquery-3.1.1.min.js"></script>
+    <script src="../Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>ItemShop</legend>
+    @if (ViewBag.saveConfirmMsg != null)
+    {
+        string notificationMessage = ViewBag.saveConfirmMsg.ToString();
+        if (notificationMessage.Equals("Successfully Added!.."))
+        {
+        <h3 style="color: green;">@notificationMessage</h3>
+        }
+        else
+        {
+        <h3 style="color: red;">@notificationMessage</h3>
+        }
+    }
+            <div class="editor-label">
+                <label>Group</label>
+            </div>
+            <div class="editor-field">
+                <select name="groupId" id="groupId" style="width: 173px">
+                            <option value="">---Select---</option>
+                            @foreach (Group group in groupList)
+                            {
+                                <option value="@group.Id">@group.GroupName</option>
+                            }
+                        </select>
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ItemId)
+            </div>
+            <div class="editor-field">
+                <select name="ItemId" id="ItemId" style="width: 173px"></select>
+                @Html.ValidationMessageFor(model => model.ItemId)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NoOfItems)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NoOfItems)
+                @Html.ValidationMessageFor(model => model.NoOfItems)
+            </div>
+    
+            
+    
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+    @if (itemShopViewList != null)
+    {
+        <table border="1px">
+            <tr>
+                <th>SI</th>
+                <th>Group Name</th>
+                <th>Group Name</th>
+                <th>No Of Items</th>
+                
+            </tr>
+            @{
+                int si = 1;
+            }
+            @foreach (ItemShopView itemShopView in itemShopViewList)
+            {
+                <tr>
+                    <td>
+                        @si
+                    </td>
+                    <td>
+                        @itemShopView.GroupName
+                    </td>
+                    <td>
+                        @itemShopView.ItemName
+                    </td>
+                    <td>
+                        @itemShopView.NoOfItems
+                    </td>
+                </tr>
+                si++;
+            }
+
+        </table>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $("#groupId").change(function () {
+
+                var grpId = $("#groupId").val();
+                if (grpId > 0) {
+                    $("#ItemId").empty();
+                    var json = { groupId: grpId };
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetItemList", "Item")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        //alert(data);
+                        $.each(data, function (key, value) {
+                            //alert(key);
+                            $("#ItemId").append('<option value=' + value.Id + '>' + value.ItemName + '</option>');
+
+                        });
+                    }
+                });
+            } else {
+                {
+                    $("#ThanaId").empty().append("<option value=''>Select...</option>");
+                }
+
+            }
+
+        });
+    });
+</script>
+</body>
+</html>
